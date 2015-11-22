@@ -1,0 +1,31 @@
+{
+  "host": ":3000",
+  "db": {
+    "driver": "sqlite3",
+    "data_source": "./msh.db"
+  },
+  "admin": {
+    "username": "user",
+    "password": "password"
+  },
+  "eureka": {
+    "config": {
+      "cert_file": "",
+      "key_file": "",
+      "ca_cert_files": null,
+      "timeout": 100000,
+      "consistency": ""
+    },
+    "machines": [
+      "http://127.0.0.1:8761/eureka"
+    ]
+  },
+  "instance": {
+    "name": "myInstance",
+    "cachet": {
+      "api_url": "https://demo.cachethq.io/api/v1",
+      "api_token": "9yMHsdioQosnyVK4iCVR",
+      "insecure_api": false
+    }
+  }
+}

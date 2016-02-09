@@ -12,5 +12,6 @@ type Application struct {
 	SecurePort            bool   `sql:"not null"`
 	Threshold             int    `sql:"not null"`
 	RenewalIntervalInSecs int    `sql:"not null"`
+	Proxy                 string `sql:"not null"`
 	InstanceID            int    `sql:"index"`
 }

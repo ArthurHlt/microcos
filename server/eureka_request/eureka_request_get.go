@@ -5,6 +5,9 @@ import (
 	"github.com/ArthurHlt/go-eureka-client/eureka"
 	"github.com/martini-contrib/render"
 	"net/http"
+	"github.com/ArthurHlt/microcos/eureka_client"
+	"github.com/ArthurHlt/go-eureka-client/eureka"
+	"strings"
 )
 
 type EurekaRequestGet struct {

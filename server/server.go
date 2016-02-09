@@ -3,13 +3,13 @@ package server
 import (
 	"github.com/go-martini/martini"
 	"github.com/ArthurHlt/go-eureka-client/eureka"
-	"github.com/ArthurHlt/microserv-helper/server/eureka_request"
-	"github.com/ArthurHlt/microserv-helper/eureka_client"
+	"github.com/ArthurHlt/microcos/server/eureka_request"
+	"github.com/ArthurHlt/microcos/eureka_client"
 	"github.com/martini-contrib/cors"
 	"github.com/martini-contrib/render"
-	"github.com/ArthurHlt/microserv-helper/server/jobs_request"
+	"github.com/ArthurHlt/microcos/server/jobs_request"
 	"github.com/martini-contrib/auth"
-	"github.com/ArthurHlt/microserv-helper/config"
+	"github.com/ArthurHlt/microcos/config"
 	"os"
 )
 

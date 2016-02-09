@@ -2,9 +2,9 @@ package db
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/ArthurHlt/microserv-helper/db/model"
-	"github.com/ArthurHlt/microserv-helper/config"
-	"github.com/ArthurHlt/microserv-helper/logger"
+	"github.com/ArthurHlt/microcos/db/model"
+	"github.com/ArthurHlt/microcos/config"
+	"github.com/ArthurHlt/microcos/logger"
 	_ "github.com/lib/pq"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/mattn/go-sqlite3"

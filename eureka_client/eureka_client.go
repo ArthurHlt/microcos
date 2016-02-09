@@ -1,8 +1,8 @@
 package eureka_client
 import (
-	"github.com/ArthurHlt/microserv-helper/config"
+	"github.com/ArthurHlt/microcos/config"
 	"github.com/ArthurHlt/go-eureka-client/eureka"
-	"github.com/ArthurHlt/microserv-helper/logger"
+	"github.com/ArthurHlt/microcos/logger"
 	"time"
 )
 var eurekaClient *eureka.Client

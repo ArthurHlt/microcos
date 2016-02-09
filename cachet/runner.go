@@ -2,7 +2,7 @@ package cachet
 
 import (
 	"github.com/ArthurHlt/cachet-monitor/cachet"
-	"github.com/ArthurHlt/microserv-helper/logger"
+	"github.com/ArthurHlt/microcos/logger"
 	"time"
 	"fmt"
 )

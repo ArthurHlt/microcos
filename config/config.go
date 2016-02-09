@@ -2,7 +2,7 @@ package config
 import (
 	"io/ioutil"
 	"encoding/json"
-	"github.com/ArthurHlt/microserv-helper/logger"
+	"github.com/ArthurHlt/microcos/logger"
 	"github.com/kardianos/osext"
 	"github.com/ArthurHlt/gominlog"
 )

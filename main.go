@@ -7,10 +7,10 @@ import (
 //"fmt"
 //"io/ioutil"
 	"fmt"
-	"github.com/ArthurHlt/microserv-helper/server"
+	"github.com/ArthurHlt/microcos/server"
 //"github.com/ArthurHlt/microserv-helper/cachet"
-	"github.com/ArthurHlt/microserv-helper/db"
-	"github.com/ArthurHlt/microserv-helper/eureka_client"
+	"github.com/ArthurHlt/microcos/db"
+	"github.com/ArthurHlt/microcos/eureka_client"
 //"github.com/ArthurHlt/microserv-helper/logger"
 )
 func check(e error) {

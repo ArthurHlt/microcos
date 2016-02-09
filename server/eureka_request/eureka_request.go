@@ -1,9 +1,9 @@
 package eureka_request
 import (
 	"github.com/go-martini/martini"
-	"github.com/ArthurHlt/go-eureka-client/eureka"
 	"github.com/martini-contrib/render"
 	"fmt"
+	"github.com/ArthurHlt/microcos/eureka_client"
 )
 
 type EurekaRequestInterface interface {

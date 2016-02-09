@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 	"github.com/martini-contrib/render"
+	"github.com/ArthurHlt/microcos/eureka_client"
 )
 
 type EurekaRequestDelete struct {

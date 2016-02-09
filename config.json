@@ -2,7 +2,7 @@
   "host": ":3000",
   "db": {
     "driver": "sqlite3",
-    "data_source": "./msh.db"
+    "data_source": "./microcos.db"
   },
   "admin": {
     "username": "user",
@@ -21,11 +21,11 @@
     ]
   },
   "instance": {
-    "name": "myInstance",
-    "cachet": {
-      "api_url": "https://demo.cachethq.io/api/v1",
-      "api_token": "9yMHsdioQosnyVK4iCVR",
-      "insecure_api": false
-    }
+    "name": "myInstance"
+  },
+  "cachet": {
+    "api_url": "https://demo.cachethq.io/api/v1",
+    "api_token": "9yMHsdioQosnyVK4iCVR",
+    "insecure_api": false
   }
 }

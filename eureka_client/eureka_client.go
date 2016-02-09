@@ -6,7 +6,7 @@ import (
 	"time"
 )
 type EurekaClient struct {
-	eureka.Client
+	*eureka.Client
 	GroupName string
 }
 var eurekaClient *EurekaClient
@@ -18,19 +18,22 @@ func GetEurekaClient() *EurekaClient {
 	var err error
 	conf := config.GetConfig()
 	if conf.Eureka.Config.CertFile == "" || conf.Eureka.Config.KeyFile == "" {
-		client = &EurekaClient{eureka.NewClient(conf.Eureka.Machines)}
+		client = &EurekaClient{eureka.NewClient(conf.Eureka.Machines), conf.Instance.Name}
 	}else {
-		client, err = &EurekaClient{eureka.NewTLSClient(
+		eurekaOriginalClient, err := eureka.NewTLSClient(
 			conf.Eureka.Machines,
 			conf.Eureka.Config.CertFile,
 			conf.Eureka.Config.KeyFile,
 			conf.Eureka.Config.CaCertFiles,
-		)}
+		)
+		if err != nil {
+			panic(err)
+		}
+		client = &EurekaClient{eurekaOriginalClient, conf.Instance.Name}
 	}
 	if err != nil {
 		panic(err)
 	}
-	client.GroupName = conf.Instance.Name
 	if conf.Eureka.Config.Consistency != "" {
 		client.Config.Consistency = conf.Eureka.Config.Consistency
 	}

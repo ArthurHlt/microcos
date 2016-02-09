@@ -2,7 +2,6 @@ package server
 
 import (
 	"github.com/go-martini/martini"
-	"github.com/ArthurHlt/go-eureka-client/eureka"
 	"github.com/ArthurHlt/microcos/server/eureka_request"
 	"github.com/ArthurHlt/microcos/eureka_client"
 	"github.com/martini-contrib/cors"
@@ -10,12 +9,14 @@ import (
 	"github.com/ArthurHlt/microcos/server/jobs_request"
 	"github.com/martini-contrib/auth"
 	"github.com/ArthurHlt/microcos/config"
-	"os"
+	"net"
+	"github.com/ArthurHlt/gominlog"
+	"github.com/ArthurHlt/microcos/logger"
 )
-
+var loggerServer *gominlog.MinLog = logger.GetMinLog()
 type Server struct {
 	Martini      *martini.ClassicMartini
-	EurekaClient *eureka.Client
+	EurekaClient *eureka_client.EurekaClient
 }
 
 func NewServer() *Server {
@@ -25,7 +26,12 @@ func NewServer() *Server {
 	}
 }
 
-func (this *Server) Run() {
+func (this *Server) Run(withRandomPort ...bool) {
+	this.Martini.Use(cors.Allow(&cors.Options{
+		AllowAllOrigins: true,
+		AllowMethods:     []string{"PUT", "PATCH", "DELETE", "GET", "OPTIONS", "POST"},
+		AllowCredentials: true,
+	}))
 	this.Martini.Use(render.Renderer())
 
 	this.Martini.Group("/eureka", func(r martini.Router) {
@@ -34,21 +40,16 @@ func (this *Server) Run() {
 		}
 	})
 	this.registerJobsRoutes()
-	this.Martini.Get("/test", func() {
-		client := eureka.NewClient([]string{
-			"http://127.0.0.1:3000/eureka",
-		})
-		instance := eureka.NewInstanceInfo("titi.org", "tutu", "12.12.12.12", 80, 30, false)
-		client.UnregisterInstance(instance.App, instance.HostName)
-	}, cors.Allow(&cors.Options{
-		AllowAllOrigins: true,
-		AllowMethods:     []string{"PUT", "PATCH", "DELETE", "GET", "OPTIONS", "POST"},
-		AllowCredentials: true,
-	}))
-	if config.GetConfig().Host != "" {
+	if len(withRandomPort) > 0 && withRandomPort[0] {
+		listener, err := net.Listen("tcp", "127.0.0.1:0")
+		if err != nil {
+			loggerServer.Severe("Error when getting a free random port: %v", err.Error())
+		}
+		host := listener.Addr().String()
+		listener.Close()
+		this.Martini.RunOnAddr(host)
+	}else if config.GetConfig().Host != "" {
 		this.Martini.RunOnAddr(config.GetConfig().Host)
-	}else if os.Getenv("PORT") != "" {
-		this.Martini.RunOnAddr(":" + os.Getenv("PORT"))
 	}else {
 		this.Martini.Run()
 	}

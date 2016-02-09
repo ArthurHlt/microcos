@@ -53,7 +53,7 @@ func (this *EurekaRequestGet) filteringApplications(applications *eureka.Applica
 	}
 	return filteredApplications
 }
-func (this *EurekaRequestGet) filteringAppName(appId string) {
+func (this *EurekaRequestGet) filteringAppName(appId string) string {
 	return strings.TrimPrefix(appId, this.eurekaClient.GroupName + "-")
 }
 func (this *EurekaRequestGet) requestApplication(r render.Render, req *http.Request, params martini.Params) {

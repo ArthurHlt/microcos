@@ -2,18 +2,18 @@ package eureka_request
 
 import (
 	"github.com/go-martini/martini"
-	"github.com/ArthurHlt/go-eureka-client/eureka"
 	"net/http"
 	"io/ioutil"
 	"strings"
 	"github.com/martini-contrib/render"
+	"github.com/ArthurHlt/microcos/eureka_client"
 )
 
 type EurekaRequestPost struct {
 	EurekaRequest
 }
 
-func NewEurekaRequestPost(server *martini.ClassicMartini, eurekaClient *eureka.Client) *EurekaRequestPost {
+func NewEurekaRequestPost(server *martini.ClassicMartini, eurekaClient *eureka_client.EurekaClient) *EurekaRequestPost {
 	eurekaRequest := &EurekaRequestPost{}
 	eurekaRequest.eurekaClient = eurekaClient
 	eurekaRequest.server = server
@@ -21,7 +21,7 @@ func NewEurekaRequestPost(server *martini.ClassicMartini, eurekaClient *eureka.C
 }
 
 func (this *EurekaRequestPost) requestRegisterApp(r render.Render, resp http.ResponseWriter, req *http.Request, params martini.Params) {
-	values := []string{"apps", params["appId"]}
+	values := []string{"apps", this.getAppId(params["appId"])}
 	path := strings.Join(values, "/")
 	defer req.Body.Close()
 	body, err := ioutil.ReadAll(req.Body)

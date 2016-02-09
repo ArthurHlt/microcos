@@ -12,9 +12,13 @@ type EurekaRequestInterface interface {
 
 type EurekaRequest struct {
 	server       *martini.ClassicMartini
-	eurekaClient *eureka.Client
+	eurekaClient *eureka_client.EurekaClient
 }
 
 func (this *EurekaRequest) showError(err error, r render.Render) {
 	r.Text(500, fmt.Sprintf("%v", err))
+}
+
+func (this *EurekaRequest) getAppId(originalAppId string) string {
+	return this.eurekaClient.GroupName + "-" + originalAppId
 }

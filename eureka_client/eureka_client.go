@@ -5,27 +5,32 @@ import (
 	"github.com/ArthurHlt/microcos/logger"
 	"time"
 )
-var eurekaClient *eureka.Client
-func GetEurekaClient() *eureka.Client {
+type EurekaClient struct {
+	eureka.Client
+	GroupName string
+}
+var eurekaClient *EurekaClient
+func GetEurekaClient() *EurekaClient {
 	if eurekaClient != nil {
 		return eurekaClient
 	}
-	var client *eureka.Client
+	var client *EurekaClient
 	var err error
 	conf := config.GetConfig()
 	if conf.Eureka.Config.CertFile == "" || conf.Eureka.Config.KeyFile == "" {
-		client = eureka.NewClient(conf.Eureka.Machines)
+		client = &EurekaClient{eureka.NewClient(conf.Eureka.Machines)}
 	}else {
-		client, err = eureka.NewTLSClient(
+		client, err = &EurekaClient{eureka.NewTLSClient(
 			conf.Eureka.Machines,
 			conf.Eureka.Config.CertFile,
 			conf.Eureka.Config.KeyFile,
 			conf.Eureka.Config.CaCertFiles,
-		)
+		)}
 	}
 	if err != nil {
 		panic(err)
 	}
+	client.GroupName = conf.Instance.Name
 	if conf.Eureka.Config.Consistency != "" {
 		client.Config.Consistency = conf.Eureka.Config.Consistency
 	}
